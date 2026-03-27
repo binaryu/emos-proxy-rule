@@ -1,6 +1,6 @@
 # emos-proxy-rule
 
-自动提取emos反代URL，提取域名后生成 Loon / Surge / Mihomo 可用的规则文件，并通过 GitHub Actions 定时更新。
+emos 反代域名列表，推荐设置为直连。每 12 小时更新一次
 
 ## 规则链接
 

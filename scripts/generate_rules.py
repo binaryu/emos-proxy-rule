@@ -6,6 +6,7 @@ from __future__ import annotations
 import json
 import re
 import sys
+from datetime import datetime
 from pathlib import Path
 from typing import Iterable
 from urllib.error import URLError
@@ -124,10 +125,11 @@ def is_valid_hostname(hostname: str) -> bool:
     return all(HOST_LABEL_RE.fullmatch(label) for label in labels)
 
 
-def generate_loon_rules(domains: list[str]) -> str:
+def generate_loon_rules(domains: list[str], updated_at: str) -> str:
     lines = [
         "# Name: emos-loon",
         f"# Author: {RULE_AUTHOR}",
+        f"# Updated: {updated_at}",
         "# Format: Loon domain list",
         "",
     ]
@@ -135,10 +137,11 @@ def generate_loon_rules(domains: list[str]) -> str:
     return "\n".join(lines) + "\n"
 
 
-def generate_surge_rules(domains: list[str]) -> str:
+def generate_surge_rules(domains: list[str], updated_at: str) -> str:
     lines = [
         "# Name: emos-surge",
         f"# Author: {RULE_AUTHOR}",
+        f"# Updated: {updated_at}",
         "# Format: Surge rule list",
         "",
     ]
@@ -146,10 +149,11 @@ def generate_surge_rules(domains: list[str]) -> str:
     return "\n".join(lines) + "\n"
 
 
-def generate_mihomo_rules(domains: list[str]) -> str:
+def generate_mihomo_rules(domains: list[str], updated_at: str) -> str:
     lines = [
         "# Name: emos-mihomo-direct",
         f"# Author: {RULE_AUTHOR}",
+        f"# Updated: {updated_at}",
         "# Format: Mihomo rules list",
         "",
     ]
@@ -157,8 +161,11 @@ def generate_mihomo_rules(domains: list[str]) -> str:
     return "\n".join(lines) + "\n"
 
 
-def generate_mihomo_provider(domains: list[str]) -> str:
-    lines = ["payload:"]
+def generate_mihomo_provider(domains: list[str], updated_at: str) -> str:
+    lines = [
+        f"# Updated: {updated_at}",
+        "payload:",
+    ]
     lines.extend(f"  - DOMAIN,{domain}" for domain in domains)
     return "\n".join(lines) + "\n"
 
@@ -177,16 +184,17 @@ def main() -> int:
         return 1
 
     domains = extract_domains(data)
+    updated_at = datetime.now().astimezone().strftime("%Y-%m-%d %H:%M")
     if not data:
         print("[WARN] API returned an empty array; generating files with headers only.")
     elif not domains:
         print("[WARN] No valid domains extracted from response; generating empty rule bodies.")
 
     outputs = {
-        LOON_FILE: generate_loon_rules(domains),
-        SURGE_FILE: generate_surge_rules(domains),
-        MIHOMO_LIST_FILE: generate_mihomo_rules(domains),
-        MIHOMO_YAML_FILE: generate_mihomo_provider(domains),
+        LOON_FILE: generate_loon_rules(domains, updated_at),
+        SURGE_FILE: generate_surge_rules(domains, updated_at),
+        MIHOMO_LIST_FILE: generate_mihomo_rules(domains, updated_at),
+        MIHOMO_YAML_FILE: generate_mihomo_provider(domains, updated_at),
     }
 
     for file_path, file_content in outputs.items():
