@@ -12,11 +12,13 @@ from typing import Iterable
 from urllib.error import URLError
 from urllib.parse import urlparse
 from urllib.request import Request, urlopen
+from zoneinfo import ZoneInfo
 
 API_URL = "https://emos.best/api/wiki/proxy"
 USER_AGENT = "emos-proxy-rule-generator/1.0 (+https://github.com/<user>/emos-proxy-rule)"
 REQUEST_TIMEOUT = 30
 RULE_AUTHOR = "binary"
+UPDATE_TZ = ZoneInfo("Asia/Shanghai")
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 RULES_DIR = ROOT_DIR / "rules"
@@ -184,7 +186,7 @@ def main() -> int:
         return 1
 
     domains = extract_domains(data)
-    updated_at = datetime.now().astimezone().strftime("%Y-%m-%d %H:%M")
+    updated_at = datetime.now(UPDATE_TZ).strftime("%Y-%m-%d %H:%M:%S")
     if not data:
         print("[WARN] API returned an empty array; generating files with headers only.")
     elif not domains:

@@ -1,6 +1,6 @@
 # Name: emos-surge
 # Author: binary
-# Updated: 2026-03-27 15:09
+# Updated: 2026-03-27 21:49:38
 # Format: Surge rule list
 
 DOMAIN,a.aiaa.top,DIRECT
@@ -27,7 +27,6 @@ DOMAIN,emos.dolby.dpdns.org,DIRECT
 DOMAIN,emos.emby.bio,DIRECT
 DOMAIN,emos.goldenarch.qzz.io,DIRECT
 DOMAIN,emos.jeanne.dpdns.org,DIRECT
-DOMAIN,emos.liuerao.dpdns.org,DIRECT
 DOMAIN,emos.mt6688999.dpdns.org,DIRECT
 DOMAIN,emos.saga8.dpdns.org,DIRECT
 DOMAIN,emos.tpuqc.dpdns.org,DIRECT
