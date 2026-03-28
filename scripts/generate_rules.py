@@ -15,7 +15,7 @@ from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
 
 API_URL = "https://emos.best/api/wiki/proxy"
-USER_AGENT = "emos-proxy-rule-generator/1.0 (+https://github.com/<user>/emos-proxy-rule)"
+USER_AGENT = "emos-proxy-rule-generator/1.0 (+https://github.com/binaryu/emos-proxy-rule)"
 REQUEST_TIMEOUT = 30
 RULE_AUTHOR = "binary"
 UPDATE_TZ = ZoneInfo("Asia/Shanghai")
@@ -217,6 +217,57 @@ def write_file(path: Path, content: str) -> None:
         file.write(content)
 
 
+def load_existing_domains(path: Path) -> list[str] | None:
+    """Load normalized domains from existing sing-box ruleset file."""
+    if not path.exists():
+        return None
+
+    try:
+        raw = path.read_text(encoding="utf-8")
+        data = json.loads(raw)
+    except (OSError, json.JSONDecodeError):
+        return None
+
+    if not isinstance(data, dict):
+        return None
+
+    rules = data.get("rules")
+    if not isinstance(rules, list) or not rules:
+        return None
+
+    first_rule = rules[0]
+    if not isinstance(first_rule, dict):
+        return None
+
+    raw_domains = first_rule.get("domain")
+    if not isinstance(raw_domains, list):
+        return None
+
+    domains = [domain for domain in raw_domains if isinstance(domain, str) and domain]
+    return sorted(set(domains))
+
+
+def load_existing_updated_at(path: Path) -> str | None:
+    """Read '# Updated: ...' from an existing rule file header."""
+    if not path.exists():
+        return None
+
+    marker = "# Updated: "
+    try:
+        with path.open("r", encoding="utf-8") as file:
+            for _ in range(20):
+                line = file.readline()
+                if not line:
+                    break
+                if line.startswith(marker):
+                    value = line[len(marker) :].strip()
+                    return value or None
+    except OSError:
+        return None
+
+    return None
+
+
 def main() -> int:
     try:
         data = fetch_data()
@@ -224,12 +275,21 @@ def main() -> int:
         print(f"[ERROR] {exc}", file=sys.stderr)
         return 1
 
-    domains = extract_domains(data)
-    updated_at = datetime.now(UPDATE_TZ).strftime("%Y-%m-%d %H:%M:%S")
     if not data:
-        print("[WARN] API returned an empty array; generating files with headers only.")
-    elif not domains:
-        print("[WARN] No valid domains extracted from response; generating empty rule bodies.")
+        print("[ERROR] API returned an empty array; aborting to avoid publishing empty rules.", file=sys.stderr)
+        return 1
+
+    domains = extract_domains(data)
+    if not domains:
+        print("[ERROR] No valid domains extracted from API response; aborting.", file=sys.stderr)
+        return 1
+
+    existing_domains = load_existing_domains(SING_BOX_FILE)
+    domains_changed = existing_domains != domains if existing_domains is not None else True
+    if domains_changed:
+        updated_at = datetime.now(UPDATE_TZ).strftime("%Y-%m-%d %H:%M:%S")
+    else:
+        updated_at = load_existing_updated_at(LOON_FILE) or datetime.now(UPDATE_TZ).strftime("%Y-%m-%d %H:%M:%S")
 
     outputs = {
         LOON_FILE: generate_loon_rules(domains, updated_at),
@@ -245,6 +305,10 @@ def main() -> int:
         write_file(file_path, file_content)
 
     print(f"[OK] Extracted {len(domains)} unique domains.")
+    if domains_changed:
+        print("[OK] Domain set changed; refreshed update timestamp.")
+    else:
+        print("[OK] Domain set unchanged; kept previous update timestamp.")
     print("[OK] Generated files:")
     for file_path in outputs:
         print(f" - {file_path.as_posix()}")

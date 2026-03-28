@@ -1,4 +1,4 @@
-> emos 反代域名列表，推荐设置为直连。每天自动更新
+> emos 反代域名列表，推荐设置为直连。每天自动更新。
 
 来源：[https://wiki.emos.best/proxy.html](https://wiki.emos.best/proxy.html)
 
