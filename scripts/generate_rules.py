@@ -25,8 +25,11 @@ RULES_DIR = ROOT_DIR / "rules"
 
 LOON_FILE = RULES_DIR / "emos-loon.list"
 SURGE_FILE = RULES_DIR / "emos-surge.list"
+SHADOWROCKET_FILE = RULES_DIR / "emos-shadowrocket.list"
+QUANTUMULT_X_FILE = RULES_DIR / "emos-quantumultx.list"
 MIHOMO_LIST_FILE = RULES_DIR / "emos-mihomo.list"
 MIHOMO_YAML_FILE = RULES_DIR / "emos-mihomo.yaml"
+SING_BOX_FILE = RULES_DIR / "emos-sing-box.json"
 
 HOST_LABEL_RE = re.compile(r"^(?:xn--)?[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$")
 
@@ -151,6 +154,30 @@ def generate_surge_rules(domains: list[str], updated_at: str) -> str:
     return "\n".join(lines) + "\n"
 
 
+def generate_shadowrocket_rules(domains: list[str], updated_at: str) -> str:
+    lines = [
+        "# Name: emos-shadowrocket",
+        f"# Author: {RULE_AUTHOR}",
+        f"# Updated: {updated_at}",
+        "# Format: Shadowrocket rule list",
+        "",
+    ]
+    lines.extend(f"DOMAIN,{domain},DIRECT" for domain in domains)
+    return "\n".join(lines) + "\n"
+
+
+def generate_quantumult_x_rules(domains: list[str], updated_at: str) -> str:
+    lines = [
+        "# Name: emos-quantumultx",
+        f"# Author: {RULE_AUTHOR}",
+        f"# Updated: {updated_at}",
+        "# Format: Quantumult X rule list",
+        "",
+    ]
+    lines.extend(f"HOST,{domain},DIRECT" for domain in domains)
+    return "\n".join(lines) + "\n"
+
+
 def generate_mihomo_rules(domains: list[str], updated_at: str) -> str:
     lines = [
         "# Name: emos-mihomo-direct",
@@ -170,6 +197,18 @@ def generate_mihomo_provider(domains: list[str], updated_at: str) -> str:
     ]
     lines.extend(f"  - DOMAIN,{domain}" for domain in domains)
     return "\n".join(lines) + "\n"
+
+
+def generate_sing_box_ruleset(domains: list[str]) -> str:
+    ruleset = {
+        "version": 1,
+        "rules": [
+            {
+                "domain": domains,
+            }
+        ],
+    }
+    return json.dumps(ruleset, ensure_ascii=False, indent=2) + "\n"
 
 
 def write_file(path: Path, content: str) -> None:
@@ -195,8 +234,11 @@ def main() -> int:
     outputs = {
         LOON_FILE: generate_loon_rules(domains, updated_at),
         SURGE_FILE: generate_surge_rules(domains, updated_at),
+        SHADOWROCKET_FILE: generate_shadowrocket_rules(domains, updated_at),
+        QUANTUMULT_X_FILE: generate_quantumult_x_rules(domains, updated_at),
         MIHOMO_LIST_FILE: generate_mihomo_rules(domains, updated_at),
         MIHOMO_YAML_FILE: generate_mihomo_provider(domains, updated_at),
+        SING_BOX_FILE: generate_sing_box_ruleset(domains),
     }
 
     for file_path, file_content in outputs.items():
