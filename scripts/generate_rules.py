@@ -150,7 +150,7 @@ def generate_surge_rules(domains: list[str], updated_at: str) -> str:
         "# Format: Surge rule list",
         "",
     ]
-    lines.extend(f"DOMAIN,{domain},DIRECT" for domain in domains)
+    lines.extend(f"DOMAIN,{domain}" for domain in domains)
     return "\n".join(lines) + "\n"
 
 
@@ -162,7 +162,7 @@ def generate_shadowrocket_rules(domains: list[str], updated_at: str) -> str:
         "# Format: Shadowrocket rule list",
         "",
     ]
-    lines.extend(f"DOMAIN,{domain},DIRECT" for domain in domains)
+    lines.extend(f"DOMAIN,{domain}" for domain in domains)
     return "\n".join(lines) + "\n"
 
 
