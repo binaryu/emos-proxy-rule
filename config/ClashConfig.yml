@@ -1,74 +1,62 @@
 mixed-port: 7890
 allow-lan: true
 bind-address: "*"
-ipv6: false
+ipv6: true
 
 mode: rule
-log-level: warning 
+log-level: warning
 
-external-controller: '127.0.0.1:9090'
+external-controller: 127.0.0.1:9090
 
 dns:
   enable: true
   ipv6: false
   listen: 0.0.0.0:1053
+
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+
+  fake-ip-filter:
+    - "*.lan"
+    - "*.local"
+    - "*.localhost"
+    - "time.*"
+    - "ntp.*"
+    - "stun.*.*"
+    - "stun.*.*.*"
+
   default-nameserver:
     - 223.5.5.5
     - 119.29.29.29
-    - 114.114.114.114
-  enhanced-mode: fake-ip 
-  fake-ip-range: 198.18.0.1/16
-  fake-ip-filter:
-    - '*.lan'
-    - '*.local'
-    - '*.localhost'
-    - 'time.*'
-    - 'ntp.*'
-    - 'localhost.ptlogin2.qq.com'
-    - 'stun.*.*'
-    - 'stun.*.*.*'
+
   nameserver:
     - 223.5.5.5
     - 119.29.29.29
-  
+
   fallback:
     - https://dns.cloudflare.com/dns-query
     - https://dns.google/dns-query
     - tls://8.8.4.4
+
   fallback-filter:
     geoip: true
     geoip-code: CN
-    ipcidr:
-      - 240.0.0.0/4
 
-cfw-latency-timeout: 3000
-cfw-latency-url: http://www.gstatic.com/generate_204
-cfw-conn-break-strategy:
-  proxy: none
-  profile: true
-  mode: false
-cfw-proxies-order: default
+rule-providers:
+  emos_proxy:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/binaryu/emos-proxy-rule/main/rules/emos-mihomo.yaml
+    path: ./ruleset/emos-mihomo.yaml
+    interval: 86400
 
-cfw-bypass:
-  - localhost
-  - 127.*
-  - 10.*
-  - 172.16.*
-  - 172.17.*
-  - 172.18.*
-  - 172.19.*
-  - 172.20.*
-  - 172.21.*
-  - 172.22.*
-  - 172.23.*
-  - 172.24.*
-  - 172.25.*
-  - 172.26.*
-  - 172.27.*
-  - 172.28.*
-  - 172.29.*
-  - 172.30.*
-  - 172.31.*
-  - 192.168.*
-  - <local>
-  - "*.cn"
+rules:
+  - IP-CIDR,127.0.0.0/8,DIRECT
+  - IP-CIDR,10.0.0.0/8,DIRECT
+  - IP-CIDR,172.16.0.0/12,DIRECT
+  - IP-CIDR,192.168.0.0/16,DIRECT
+  - RULE-SET,emos_proxy,DIRECT
+  - DOMAIN-SUFFIX,cn,DIRECT
+
+  - MATCH,PROXY
