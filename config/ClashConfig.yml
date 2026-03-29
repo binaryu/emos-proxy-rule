@@ -41,22 +41,3 @@ dns:
   fallback-filter:
     geoip: true
     geoip-code: CN
-
-rule-providers:
-  emos_proxy:
-    type: http
-    behavior: classical
-    format: yaml
-    url: https://raw.githubusercontent.com/binaryu/emos-proxy-rule/main/rules/emos-mihomo.yaml
-    path: ./ruleset/emos-mihomo.yaml
-    interval: 86400
-
-rules:
-  - IP-CIDR,127.0.0.0/8,DIRECT
-  - IP-CIDR,10.0.0.0/8,DIRECT
-  - IP-CIDR,172.16.0.0/12,DIRECT
-  - IP-CIDR,192.168.0.0/16,DIRECT
-  - RULE-SET,emos_proxy,DIRECT
-  - DOMAIN-SUFFIX,cn,DIRECT
-
-  - MATCH,PROXY
