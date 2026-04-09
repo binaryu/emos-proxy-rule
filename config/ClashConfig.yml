@@ -1,44 +1,265 @@
-mixed-port: 7890
+proxy_providers_common:
+  &p {
+    type: http,
+    interval: 86400,
+    proxy: DIRECT,
+    health-check:
+      {
+        enable: true,
+        url: https://g.cn/generate_204,
+        interval: 600,
+        lazy: false,
+      },
+  }
+
+exclude:
+  &exclude {
+    exclude-filter: '群|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|超时|收藏|福利|邀请|好友|失联|选择|剩余|公益|发布|DIZTNA|通路|登录|禁止|定时|渠道|牢记|永久|余额|阁下|本站|刷新|导航|⚠️|@|Expire|http|com',
+  }
+
+# 机场订阅链接
+proxy-providers:
+  provider1:
+    <<: [*p, *exclude]
+    url: '此处填入机场订阅链接'
+    path: ./proxy_providers/provider1.txt
+#  provider2:
+#   <<: [*p, *exclude]
+#   url: '此处填入机场订阅链接'
+#   path: ./proxy_providers/provider2.txt
+
+
 allow-lan: true
-bind-address: "*"
 ipv6: true
+bind-address: '*'
+unified-delay: true
+tcp-concurrent: true
+keep-alive-idle: 600
+keep-alive-interval: 60
+find-process-mode: strict
+external-controller: '[::]:9090'
+external-ui: ui
+external-ui-url: 'https://github.com/Zephyruso/zashboard/releases/latest/download/dist.zip'
 
-mode: rule
-log-level: warning
+profile:
+  store-selected: true
+  store-fake-ip: true
 
-external-controller: 127.0.0.1:9090
+# --- 代理节点 ---
+proxies:
+  - { name: '🇨🇳 直连（IPv4优先）', type: direct, ip-version: ipv4-prefer }
+  - { name: '🇨🇳 直连（IPv6优先）', type: direct, ip-version: ipv6-prefer }
+  - { name: '🇨🇳 直连（双栈）', type: direct }
 
 dns:
   enable: true
-  ipv6: false
-  listen: 0.0.0.0:1053
-
+  ipv6: true
+  listen: :1053
+  cache-algorithm: arc
+  use-hosts: true
+  use-system-hosts: true
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
-
+  fake-ip-range6: fc00::/18
   fake-ip-filter:
-    - "*.lan"
-    - "*.local"
-    - "*.localhost"
-    - "time.*"
-    - "ntp.*"
-    - "stun.*"
-    - "*.msftconnecttest.com"
-    - "*.msftncsi.com"
-
+    - '*'
+    - 'rule-set:cn'
+    - 'rule-set:private'
+    - 'rule-set:category_ntp'
+    - 'rule-set:fakeip_filter'
+    - 'rule-set:connectivity_check'
   default-nameserver:
-    - 223.5.5.5
-    - 119.29.29.29
-
+    - '114.114.114.114' # 国内主流的、免费的公共DNS
   nameserver:
-    - https://dns.alidns.com/dns-query
-    - https://doh.pub/dns-query
+    - '1.1.1.1' # Cloudflare提供的公共DNS
+  proxy-server-nameserver:
+    - 'https://doh.pub/dns-query#DIRECT'
+  nameserver-policy:
+    '*': 'system'
+    '+.arpa': 'system'
+    '+.internal.crop.com': '10.0.0.1'
+    'connectivitycheck.platform.hicloud.com,g.cn,fsend.cn': 'system'
+    'rule-set:private,cn,steam_cn,epicgames,nvidia_cn,microsoft_cn,microsoft,googlefcm,apple,spotify': 'system'
 
-  fallback:
-    - https://dns.cloudflare.com/dns-query
-    - https://dns.google/dns-query
-    - tls://1.1.1.1:853
+hosts:
+  'services.googleapis.cn': ['services.googleapis.com']
 
-  fallback-filter:
-    geoip: true
-    geoip-code: CN
+sniffer:
+  enable: true
+  force-dns-mapping: true
+  parse-pure-ip: true
+  override-destination: false
+  sniff:
+    HTTP: { ports: [80, 8080-8880], override-destination: true }
+    TLS: { ports: [443, 8443] }
+    QUIC: { ports: [443, 8443] }
+  skip-domain: ['Mijia Cloud', '+.oray.com', '+.push.apple.com']
+  skip-dst-address: ['rule-set:telegram_ip']
+
+ntp:
+  enable: true
+  write-to-system: false
+  server: cn.ntp.org.cn
+
+tun:
+  enable: true
+  stack: system
+  auto-route: true
+  strict-route: true
+  auto-redirect: true
+  auto-detect-interface: true
+  dns-hijack: ['udp://any:53', 'tcp://any:53']
+
+# --- 规则集 ---
+
+rule_providers_common:
+  rp_domain: &rp_domain { type: http, interval: 86400, behavior: domain }
+  rp_ip: &rp_ip { type: http, interval: 86400, behavior: ipcidr }
+  rp_classical:
+    &rp_classical { type: http, interval: 86400, behavior: classical }
+
+rule-providers:
+  adblockmihomolite:
+    <<: *rp_domain
+    format: mrs
+    url: 'https://fastly.jsdelivr.net/gh/217heidai/adblockfilters@main/rules/adblockmihomolite.mrs'
+  DownloadApps:
+    <<: *rp_classical
+    format: text
+    url: 'https://fastly.jsdelivr.net/gh/AIsouler/MyClash@main/Rules/DownloadApps.txt'
+  fakeip_filter:
+    <<: *rp_domain
+    format: mrs
+    url: 'https://fastly.jsdelivr.net/gh/DustinWin/ruleset_geodata@mihomo-ruleset/fakeip-filter.mrs'
+  epicgames:
+    <<: *rp_domain
+    format: mrs
+    url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/epicgames.mrs'
+  nvidia_cn:
+    <<: *rp_domain
+    format: mrs
+    url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/nvidia@cn.mrs'
+  ai:
+    <<: *rp_domain
+    format: mrs
+    url: 'https://fastly.jsdelivr.net/gh/DustinWin/ruleset_geodata@mihomo-ruleset/ai.mrs'
+  youtube:
+    <<: *rp_domain
+    format: mrs
+    url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/youtube.mrs'
+  googlefcm:
+    <<: *rp_domain
+    format: mrs
+    url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/googlefcm.mrs'
+  google:
+    <<: *rp_domain
+    format: mrs
+    url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/google.mrs'
+  google_ip:
+    <<: *rp_ip
+    format: mrs
+    url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/google.mrs'
+  github:
+    <<: *rp_domain
+    format: mrs
+    url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/github.mrs'
+  microsoft:
+    <<: *rp_domain
+    format: mrs
+    url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/microsoft.mrs'
+  microsoft_cn:
+    <<: *rp_domain
+    format: mrs
+    url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/microsoft@cn.mrs'
+  telegram:
+    <<: *rp_domain
+    format: mrs
+    url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/telegram.mrs'
+  telegram_ip:
+    <<: *rp_ip
+    format: mrs
+    url: 'https://fastly.jsdelivr.net/gh/echs-top/proxy@main/rules/mrs/telegram_ip.mrs'
+  pixiv:
+    <<: *rp_domain
+    format: mrs
+    url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/pixiv.mrs'
+  steam:
+    <<: *rp_domain
+    format: mrs
+    url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/steam.mrs'
+  steam_cn:
+    <<: *rp_domain
+    format: mrs
+    url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/steam@cn.mrs'
+  twitter:
+    <<: *rp_domain
+    format: mrs
+    url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/twitter.mrs'
+  twitter_ip:
+    <<: *rp_ip
+    format: mrs
+    url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/twitter.mrs'
+  private:
+    <<: *rp_domain
+    format: mrs
+    url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/private.mrs'
+  private_ip:
+    <<: *rp_ip
+    format: mrs
+    url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/private.mrs'
+  gfw:
+    <<: *rp_domain
+    format: mrs
+    url: 'https://fastly.jsdelivr.net/gh/DustinWin/ruleset_geodata@mihomo-ruleset/gfw.mrs'
+  cn:
+    <<: *rp_domain
+    format: mrs
+    url: 'https://static-file-global.353355.xyz/rules/cn-additional-list.mrs'
+  cn_ip:
+    <<: *rp_ip
+    format: mrs
+    url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/cn.mrs'
+  emby:
+    <<: *rp_domain
+    format: mrs
+    url: 'https://fastly.jsdelivr.net/gh/666OS/rules@release/mihomo/domain/Emby.mrs'
+  emby_ip:
+    <<: *rp_ip
+    format: mrs
+    url: 'https://fastly.jsdelivr.net/gh/666OS/rules@release/mihomo/ip/Emby.mrs'
+  spotify:
+    <<: *rp_domain
+    format: mrs
+    url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/spotify.mrs'
+  tiktok:
+    <<: *rp_domain
+    format: mrs
+    url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/tiktok.mrs'
+  netflix:
+    <<: *rp_domain
+    format: mrs
+    url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/netflix.mrs'
+  netflix_ip:
+    <<: *rp_ip
+    format: mrs
+    url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/netflix.mrs'
+  cloudflare:
+    <<: *rp_domain
+    format: mrs
+    url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/cloudflare.mrs'
+  cloudflare_ip:
+    <<: *rp_ip
+    format: mrs
+    url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/cloudflare.mrs'
+  apple:
+    <<: *rp_domain
+    format: mrs
+    url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/apple.mrs'
+  connectivity_check:
+    <<: *rp_domain
+    format: mrs
+    url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/connectivity-check.mrs'
+  category_ntp:
+    <<: *rp_domain
+    format: mrs
+    url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/category-ntp.mrs'
