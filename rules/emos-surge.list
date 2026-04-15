@@ -1,6 +1,6 @@
 # Name: emos-surge
 # Author: binary
-# Updated: 2026-04-13 10:07:17
+# Updated: 2026-04-15 09:58:54
 # Format: Surge rule list
 
 DOMAIN,a.aiaa.top
@@ -15,7 +15,6 @@ DOMAIN,embyos.92chigua.shop
 DOMAIN,emos-cn.078899.xyz
 DOMAIN,emos.001011.de5.net
 DOMAIN,emos.030666.xyz
-DOMAIN,emos.12321.us.ci
 DOMAIN,emos.137127.xyz
 DOMAIN,emos.200038.xyz
 DOMAIN,emos.255432.cc.cd
