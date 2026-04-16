@@ -1,10 +1,11 @@
 # Name: emos-mihomo-direct
 # Author: binary
-# Updated: 2026-04-15 21:13:00
+# Updated: 2026-04-16 21:19:25
 # Format: Mihomo rules list
 
 DOMAIN,a.aiaa.top,DIRECT
 DOMAIN,auto.embys.dpdns.org,DIRECT
+DOMAIN,auto3.oneq1st.dpdns.org,DIRECT
 DOMAIN,clun.top,DIRECT
 DOMAIN,dx.dirige.de5.net,DIRECT
 DOMAIN,e.zfaa.eu.cc,DIRECT
