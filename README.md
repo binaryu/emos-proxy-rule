@@ -78,6 +78,17 @@ rules:
   - RULE-SET,emos_proxy,DIRECT
 ```
 
+如果不生效，可能是dns污染导致，可以修改一下dns配置，示例：
+
+```yaml
+dns:
+  enable: true
+  nameserver-policy:
+    "rule-set:emos_proxy":
+      - https://dns.alidns.com/dns-query
+      - https://doh.pub/dns-query
+```
+
 </details>
 
 <details>
