@@ -1,6 +1,6 @@
 # Name: emos-shadowrocket
 # Author: binary
-# Updated: 2026-04-20 10:07:40
+# Updated: 2026-04-21 10:03:38
 # Format: Shadowrocket rule list
 
 DOMAIN,a.aiaa.top
@@ -45,4 +45,3 @@ DOMAIN,proxy.2019102.xyz
 DOMAIN,tmy.19990816.xyz
 DOMAIN,xn--ct9h.cc.cd
 DOMAIN,yd.dirige.de5.net
-DOMAIN,zz.zjp.dpdns.org
