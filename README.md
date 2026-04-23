@@ -10,6 +10,7 @@
 - **Quantumult X**: `https://raw.githubusercontent.com/binaryu/emos-proxy-rule/main/rules/emos-quantumultx.list`
 - **Mihomo rules**: `https://raw.githubusercontent.com/binaryu/emos-proxy-rule/main/rules/emos-mihomo.list`
 - **Mihomo rule-provider**: `https://raw.githubusercontent.com/binaryu/emos-proxy-rule/main/rules/emos-mihomo.yaml`
+- **Mihomo rule-provider (mrs binary)**: `https://raw.githubusercontent.com/binaryu/emos-proxy-rule/main/rules/emos-mihomo.mrs`
 - **Sing-box rule-set**: `https://raw.githubusercontent.com/binaryu/emos-proxy-rule/main/rules/emos-sing-box.json`
 
 ## 使用方法

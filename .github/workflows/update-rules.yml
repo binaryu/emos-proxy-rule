@@ -25,6 +25,19 @@ jobs:
         with:
           python-version: "3.x"
 
+      - name: Install mihomo
+        run: |
+          ARCH=$(uname -m)
+          case "$ARCH" in
+            x86_64)  MIHOMO_ARCH="amd64" ;;
+            aarch64) MIHOMO_ARCH="arm64" ;;
+            *)       echo "Unsupported arch: $ARCH"; exit 1 ;;
+          esac
+          curl -fSL "https://github.com/MetaCubeX/mihomo/releases/download/Alpha/mihomo-linux-${MIHOMO_ARCH}-alpha.gz" -o mihomo.gz
+          gunzip mihomo.gz
+          chmod +x mihomo
+          sudo mv mihomo /usr/local/bin/mihomo
+
       - name: Generate rules
         run: python scripts/generate_rules.py
 

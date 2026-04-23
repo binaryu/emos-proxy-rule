@@ -5,6 +5,8 @@ from __future__ import annotations
 
 import json
 import re
+import shutil
+import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -29,6 +31,8 @@ SHADOWROCKET_FILE = RULES_DIR / "emos-shadowrocket.list"
 QUANTUMULT_X_FILE = RULES_DIR / "emos-quantumultx.list"
 MIHOMO_LIST_FILE = RULES_DIR / "emos-mihomo.list"
 MIHOMO_YAML_FILE = RULES_DIR / "emos-mihomo.yaml"
+MIHOMO_DOMAIN_YAML_FILE = RULES_DIR / "emos-mihomo-domain.yaml"
+MIHOMO_MRS_FILE = RULES_DIR / "emos-mihomo.mrs"
 SING_BOX_FILE = RULES_DIR / "emos-sing-box.json"
 
 HOST_LABEL_RE = re.compile(r"^(?:xn--)?[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$")
@@ -199,6 +203,37 @@ def generate_mihomo_provider(domains: list[str], updated_at: str) -> str:
     return "\n".join(lines) + "\n"
 
 
+def generate_mihomo_domain_yaml(domains: list[str], updated_at: str) -> str:
+    lines = [
+        f"# Updated: {updated_at}",
+        "payload:",
+    ]
+    lines.extend(f"  - {domain}" for domain in domains)
+    return "\n".join(lines) + "\n"
+
+
+def convert_mihomo_mrs(domain_yaml_path: Path, mrs_output_path: Path) -> bool:
+    mihomo_bin = shutil.which("mihomo")
+    if not mihomo_bin:
+        print("[WARN] mihomo binary not found in PATH; skipping .mrs generation.", file=sys.stderr)
+        return False
+
+    try:
+        result = subprocess.run(
+            [mihomo_bin, "convert-ruleset", "domain", "yaml", str(domain_yaml_path), str(mrs_output_path)],
+            capture_output=True,
+            text=True,
+            timeout=30,
+        )
+        if result.returncode != 0:
+            print(f"[WARN] mihomo convert-ruleset failed: {result.stderr.strip()}", file=sys.stderr)
+            return False
+        return True
+    except (subprocess.TimeoutExpired, OSError) as exc:
+        print(f"[WARN] Failed to run mihomo convert-ruleset: {exc}", file=sys.stderr)
+        return False
+
+
 def generate_sing_box_ruleset(domains: list[str]) -> str:
     ruleset = {
         "version": 1,
@@ -298,11 +333,14 @@ def main() -> int:
         QUANTUMULT_X_FILE: generate_quantumult_x_rules(domains, updated_at),
         MIHOMO_LIST_FILE: generate_mihomo_rules(domains, updated_at),
         MIHOMO_YAML_FILE: generate_mihomo_provider(domains, updated_at),
+        MIHOMO_DOMAIN_YAML_FILE: generate_mihomo_domain_yaml(domains, updated_at),
         SING_BOX_FILE: generate_sing_box_ruleset(domains),
     }
 
     for file_path, file_content in outputs.items():
         write_file(file_path, file_content)
+
+    mrs_generated = convert_mihomo_mrs(MIHOMO_DOMAIN_YAML_FILE, MIHOMO_MRS_FILE)
 
     print(f"[OK] Extracted {len(domains)} unique domains.")
     if domains_changed:
@@ -312,6 +350,8 @@ def main() -> int:
     print("[OK] Generated files:")
     for file_path in outputs:
         print(f" - {file_path.as_posix()}")
+    if mrs_generated:
+        print(f" - {MIHOMO_MRS_FILE.as_posix()} (binary)")
 
     return 0
 
