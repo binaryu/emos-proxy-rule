@@ -8,9 +8,8 @@
 - **Surge**: `https://raw.githubusercontent.com/binaryu/emos-proxy-rule/main/rules/emos-surge.list`
 - **Shadowrocket**: `https://raw.githubusercontent.com/binaryu/emos-proxy-rule/main/rules/emos-shadowrocket.list`
 - **Quantumult X**: `https://raw.githubusercontent.com/binaryu/emos-proxy-rule/main/rules/emos-quantumultx.list`
-- **Mihomo rules**: `https://raw.githubusercontent.com/binaryu/emos-proxy-rule/main/rules/emos-mihomo.list`
 - **Mihomo rule-provider**: `https://raw.githubusercontent.com/binaryu/emos-proxy-rule/main/rules/emos-mihomo.yaml`
-- **Mihomo rule-provider (mrs binary)**: `https://raw.githubusercontent.com/binaryu/emos-proxy-rule/main/rules/emos-mihomo.mrs`
+- **Mihomo rule-provider (mrs)**: `https://raw.githubusercontent.com/binaryu/emos-proxy-rule/main/rules/emos-mihomo.mrs`
 - **Sing-box rule-set**: `https://raw.githubusercontent.com/binaryu/emos-proxy-rule/main/rules/emos-sing-box.json`
 
 ## 使用方法
@@ -73,6 +72,15 @@ rule-providers:
     format: yaml
     url: https://raw.githubusercontent.com/binaryu/emos-proxy-rule/main/rules/emos-mihomo.yaml
     path: ./ruleset/emos-mihomo.yaml
+    interval: 86400
+
+#或者用mrs
+  emos_proxy:
+    type: http
+    behavior: domain
+    format: mrs
+    url: https://raw.githubusercontent.com/binaryu/emos-proxy-rule/main/rules/emos-mihomo.mrs
+    path: ./ruleset/emos-mihomo.mrs
     interval: 86400
 
 rules:
