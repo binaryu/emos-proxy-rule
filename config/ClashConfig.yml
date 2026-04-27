@@ -1,447 +1,787 @@
+mixed-port: 7890
 allow-lan: true
-ipv6: true
-bind-address: '*'
-mode: rule
-unified-delay: true
-tcp-concurrent: true
-keep-alive-idle: 600
-keep-alive-interval: 60
-find-process-mode: strict
 
-external-controller: '[::]:9090'
-external-ui: ui
-external-ui-url: https://github.com/Zephyruso/zashboard/releases/latest/download/dist.zip
+bind-address: "*"
+ipv6: true
+
+log-level: error
+
+external-controller: 127.0.0.1:9090
+secret: "123456"
+external-ui: ./UI
+external-ui-url: "https://ghfast.top/https://github.com/Zephyruso/zashboard/archive/refs/heads/gh-pages.zip"
+
+
+keep-alive-interval: 15
+keep-alive-idle: 15
+tcp-concurrent: true
+unified-delay: true
 
 profile:
   store-selected: true
   store-fake-ip: true
 
-proxies: ~
-proxy-groups: ~
-
-rule-providers:
-  adblockmihomolite:
-    type: http
-    interval: 86400
-    behavior: domain
-    format: mrs
-    url: https://fastly.jsdelivr.net/gh/217heidai/adblockfilters@main/rules/adblockmihomolite.mrs
-    path: ./ruleset/adblockmihomolite.mrs
-  DownloadApps:
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://fastly.jsdelivr.net/gh/AIsouler/MyClash@main/Rules/DownloadApps.txt
-    path: ./ruleset/DownloadApps.txt
-  fakeip_filter:
-    type: http
-    interval: 86400
-    behavior: domain
-    format: text
-    url: https://fastly.jsdelivr.net/gh/juewuy/ShellCrash@dev/public/fake_ip_filter.list
-    path: ./ruleset/fakeip-filter.list
-  epicgames:
-    type: http
-    interval: 86400
-    behavior: domain
-    format: mrs
-    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/epicgames.mrs
-    path: ./ruleset/epicgames.mrs
-  nvidia_cn:
-    type: http
-    interval: 86400
-    behavior: domain
-    format: mrs
-    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/nvidia@cn.mrs
-    path: ./ruleset/nvidia@cn.mrs
-  ai:
-    type: http
-    interval: 86400
-    behavior: domain
-    format: mrs
-    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/category-ai-!cn.mrs
-    path: ./ruleset/ai.mrs
-  youtube:
-    type: http
-    interval: 86400
-    behavior: domain
-    format: mrs
-    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/youtube.mrs
-    path: ./ruleset/youtube.mrs
-  googlefcm:
-    type: http
-    interval: 86400
-    behavior: domain
-    format: mrs
-    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/googlefcm.mrs
-    path: ./ruleset/googlefcm.mrs
-  google:
-    type: http
-    interval: 86400
-    behavior: domain
-    format: mrs
-    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/google.mrs
-    path: ./ruleset/google.mrs
-  google_ip:
-    type: http
-    interval: 86400
-    behavior: ipcidr
-    format: mrs
-    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/google.mrs
-    path: ./ruleset/google_ip.mrs
-  github:
-    type: http
-    interval: 86400
-    behavior: domain
-    format: mrs
-    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/github.mrs
-    path: ./ruleset/github.mrs
-  microsoft:
-    type: http
-    interval: 86400
-    behavior: domain
-    format: mrs
-    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/microsoft.mrs
-    path: ./ruleset/microsoft.mrs
-  microsoft_cn:
-    type: http
-    interval: 86400
-    behavior: domain
-    format: mrs
-    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/microsoft@cn.mrs
-    path: ./ruleset/microsoft@cn.mrs
-  telegram:
-    type: http
-    interval: 86400
-    behavior: domain
-    format: mrs
-    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/telegram.mrs
-    path: ./ruleset/telegram.mrs
-  telegram_ip:
-    type: http
-    interval: 86400
-    behavior: ipcidr
-    format: mrs
-    url: https://fastly.jsdelivr.net/gh/echs-top/proxy@main/rules/mrs/telegram_ip.mrs
-    path: ./ruleset/telegram_ip.mrs
-  pixiv:
-    type: http
-    interval: 86400
-    behavior: domain
-    format: mrs
-    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/pixiv.mrs
-    path: ./ruleset/pixiv.mrs
-  steam:
-    type: http
-    interval: 86400
-    behavior: domain
-    format: mrs
-    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/steam.mrs
-    path: ./ruleset/steam.mrs
-  steam_cn:
-    type: http
-    interval: 86400
-    behavior: domain
-    format: mrs
-    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/steam@cn.mrs
-    path: ./ruleset/steam@cn.mrs
-  twitter:
-    type: http
-    interval: 86400
-    behavior: domain
-    format: mrs
-    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/twitter.mrs
-    path: ./ruleset/twitter.mrs
-  twitter_ip:
-    type: http
-    interval: 86400
-    behavior: ipcidr
-    format: mrs
-    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/twitter.mrs
-    path: ./ruleset/twitter_ip.mrs
-  private:
-    type: http
-    interval: 86400
-    behavior: domain
-    format: mrs
-    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/private.mrs
-    path: ./ruleset/private.mrs
-  private_ip:
-    type: http
-    interval: 86400
-    behavior: ipcidr
-    format: mrs
-    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/private.mrs
-    path: ./ruleset/private_ip.mrs
-  gfw:
-    type: http
-    interval: 86400
-    behavior: domain
-    format: mrs
-    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/gfw.mrs
-    path: ./ruleset/gfw.mrs
-  cn:
-    type: http
-    interval: 86400
-    behavior: domain
-    format: mrs
-    url: https://static-file-global.353355.xyz/rules/cn-additional-list.mrs
-    path: ./ruleset/cn.mrs
-  cn_ip:
-    type: http
-    interval: 86400
-    behavior: ipcidr
-    format: mrs
-    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/cn.mrs
-    path: ./ruleset/cn_ip.mrs
-  emby:
-    type: http
-    interval: 86400
-    behavior: domain
-    format: mrs
-    url: https://fastly.jsdelivr.net/gh/666OS/rules@release/mihomo/domain/Emby.mrs
-    path: ./ruleset/emby.mrs
-  emby_ip:
-    type: http
-    interval: 86400
-    behavior: ipcidr
-    format: mrs
-    url: https://fastly.jsdelivr.net/gh/666OS/rules@release/mihomo/ip/Emby.mrs
-    path: ./ruleset/emby_ip.mrs
-  spotify:
-    type: http
-    interval: 86400
-    behavior: domain
-    format: mrs
-    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/spotify.mrs
-    path: ./ruleset/spotify.mrs
-  tiktok:
-    type: http
-    interval: 86400
-    behavior: domain
-    format: mrs
-    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/tiktok.mrs
-    path: ./ruleset/tiktok.mrs
-  netflix:
-    type: http
-    interval: 86400
-    behavior: domain
-    format: mrs
-    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/netflix.mrs
-    path: ./ruleset/netflix.mrs
-  netflix_ip:
-    type: http
-    interval: 86400
-    behavior: ipcidr
-    format: mrs
-    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/netflix.mrs
-    path: ./ruleset/netflix_ip.mrs
-  cloudflare:
-    type: http
-    interval: 86400
-    behavior: domain
-    format: mrs
-    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/cloudflare.mrs
-    path: ./ruleset/cloudflare.mrs
-  cloudflare_cn:
-    type: http
-    interval: 86400
-    behavior: domain
-    format: mrs
-    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/cloudflare@cn.mrs
-    path: ./ruleset/cloudflare_cn.mrs
-  cloudflare_ip:
-    type: http
-    interval: 86400
-    behavior: ipcidr
-    format: mrs
-    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/cloudflare.mrs
-    path: ./ruleset/cloudflare_ip.mrs
-  apple:
-    type: http
-    interval: 86400
-    behavior: domain
-    format: mrs
-    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/apple.mrs
-    path: ./ruleset/apple.mrs
-  connectivity_check:
-    type: http
-    interval: 86400
-    behavior: domain
-    format: mrs
-    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/connectivity-check.mrs
-    path: ./ruleset/connectivity-check.mrs
-  category_ntp:
-    type: http
-    interval: 86400
-    behavior: domain
-    format: mrs
-    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/category-ntp.mrs
-    path: ./ruleset/category-ntp.mrs
-  captcha:
-    type: http
-    interval: 86400
-    behavior: domain
-    format: mrs
-    url: https://fastly.jsdelivr.net/gh/echs-top/proxy@main/rules/mrs/captcha_domain.mrs
-    path: ./ruleset/captcha.mrs
-  instagram:
-    type: http
-    interval: 86400
-    behavior: domain
-    format: mrs
-    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/instagram.mrs
-    path: ./ruleset/instagram.mrs
-
-rules:
-  - 'RULE-SET,private,直连'
-  - 'RULE-SET,private_ip,直连,no-resolve'
-  - 'RULE-SET,DownloadApps,下载专用'
-  - 'RULE-SET,steam_cn,直连'
-  - 'RULE-SET,epicgames,直连'
-  - 'RULE-SET,nvidia_cn,直连'
-  - 'RULE-SET,microsoft_cn,直连'
-  - 'RULE-SET,cloudflare_cn,直连'
-  - 'RULE-SET,captcha,人机验证'
-  - 'RULE-SET,ai,AI'
-  - 'AND,((NETWORK,UDP),(DST-PORT,443),(RULE-SET,youtube)),REJECT'
-  - 'RULE-SET,youtube,YouTube'
-  - 'RULE-SET,googlefcm,FCM'
-  - 'RULE-SET,google,Google'
-  - 'RULE-SET,google_ip,Google,no-resolve'
-  - 'RULE-SET,github,GitHub'
-  - 'RULE-SET,microsoft,Microsoft'
-  - 'RULE-SET,apple,Apple'
-  - 'RULE-SET,telegram,Telegram'
-  - 'RULE-SET,telegram_ip,Telegram,no-resolve'
-  - 'RULE-SET,cloudflare,Cloudflare'
-  - 'RULE-SET,cloudflare_ip,Cloudflare,no-resolve'
-  - 'RULE-SET,pixiv,Pixiv'
-  - 'PROCESS-NAME,com.perol.pixez,Pixiv'
-  - 'PROCESS-NAME,com.perol.play.pixez,Pixiv'
-  - 'RULE-SET,steam,Steam'
-  - 'RULE-SET,twitter,Twitter'
-  - 'RULE-SET,twitter_ip,Twitter,no-resolve'
-  - 'RULE-SET,instagram,Instagram'
-  - 'RULE-SET,emby,Emby'
-  - 'RULE-SET,emby_ip,Emby,no-resolve'
-  - 'DOMAIN-KEYWORD,emby,Emby'
-  - 'RULE-SET,spotify,Spotify'
-  - 'RULE-SET,tiktok,TikTok'
-  - 'RULE-SET,netflix,Netflix'
-  - 'RULE-SET,netflix_ip,Netflix,no-resolve'
-  - 'RULE-SET,adblockmihomolite,广告拦截'
-  - 'RULE-SET,gfw,默认代理'
-  - 'RULE-SET,cn,直连'
-  - 'DOMAIN-WILDCARD,*.cn,直连'
-  - 'RULE-SET,cn_ip,直连'
-  - 'MATCH,默认代理'
-
 dns:
   enable: true
   ipv6: true
-  listen: :1053
-  cache-algorithm: arc
-  use-hosts: true
-  use-system-hosts: true
+  listen: 0.0.0.0:1053
   enhanced-mode: fake-ip
-  fake-ip-range: 198.18.0.1/16
-  fake-ip-range-v6: fc00::/18
+  fake-ip-range: 198.19.0.1/16
   fake-ip-filter:
-    - '+.cn'
-    - 'rule-set:category_ntp'
-    - 'rule-set:fakeip_filter'
-    - 'rule-set:connectivity_check'
-    - 'rule-set:private'
-    - 'rule-set:cn'
-    - 'rule-set:googlefcm'
-    - 'rule-set:steam_cn'
-    - 'rule-set:epicgames'
-    - 'rule-set:nvidia_cn'
-    - 'rule-set:microsoft_cn'
-    - 'rule-set:cloudflare_cn'
-  proxy-server-nameserver:
-    - 'https://doh.pub/dns-query#DIRECT'
-    - 'https://dns.alidns.com/dns-query#DIRECT'
+    - "*.lan"
+    - "*.local"
+    - "*.arpa"
+    - "localhost.ptlogin2.qq.com"
+    - "+.msftconnecttest.com"
+    - "+.msftncsi.com"
+    - "ntp.*.com"
+    - "ntp.*.com.cn"
+    - "*.ntp.org.cn"
+    - "+.pool.ntp.org"
+    - "geosite:private"
   default-nameserver:
     - 223.5.5.5
     - 119.29.29.29
   nameserver:
-    - 'https://1.1.1.1/dns-query#默认代理'
-    - 'https://8.8.8.8/dns-query#默认代理'
-  nameserver-policy:
-    '*': system
-    '+.arpa': system
-    '+.cn':
-      - system
-      - https://dns.alidns.com/dns-query
-      - https://doh.pub/dns-query
-    'rule-set:private,cn,googlefcm,steam_cn,epicgames,nvidia_cn,microsoft_cn,cloudflare_cn,microsoft,apple,spotify,captcha':
-      - system
-      - https://dns.alidns.com/dns-query
-      - https://doh.pub/dns-query
-  direct-nameserver:
-    - system
     - 223.5.5.5
     - 119.29.29.29
-  direct-nameserver-follow-policy: true
-
-hosts:
-  dns.alidns.com:
+  proxy-server-nameserver:
     - 223.5.5.5
-    - 223.6.6.6
-  doh.pub:
-    - 1.12.12.12
-    - 120.53.53.53
-  services.googleapis.cn:
-    - services.googleapis.com
-  '+.mcdn.bilivideo.com':
-    - 0.0.0.0
-  '+.mcdn.bilivideo.cn':
-    - 0.0.0.0
-
-sniffer:
-  enable: false
-  force-dns-mapping: true
-  parse-pure-ip: true
-  override-destination: false
-  sniff:
-    HTTP:
-      ports:
-        - 80
-        - 8080-8880
-      override-destination: true
-    TLS:
-      ports:
-        - 443
-        - 8443
-    QUIC:
-      ports:
-        - 443
-        - 8443
-  skip-domain:
-    - Mijia Cloud
-    - '+.oray.com'
-    - '+.push.apple.com'
-    - cloudflare-ech.com
-  skip-dst-address:
-    - 'rule-set:telegram_ip'
-
-ntp:
-  enable: true
-  write-to-system: false
-  server: ntp.aliyun.com
-  port: 123
-  interval: 60
-
+    - 119.29.29.29
+  nameserver-policy:
+    "geosite:cn":
+      - 223.5.5.5
+      - 119.29.29.29
+    "geosite:private":
+      - 223.5.5.5
+      - 119.29.29.29
 tun:
   enable: true
   stack: system
+  dns-hijack:
+    - "any:53"
+    - "tcp://any:53"
   auto-route: true
-  strict-route: true
   auto-redirect: true
   auto-detect-interface: true
-  dns-hijack:
-    - udp://any:53
-    - tcp://any:53
+  strict-route: true
+  mtu: 1500
+
+cfw-bypass-bak:
+  - qq.com
+  - 'music.163.com' 
+  - '*.music.126.net' 
+  - localhost
+  - 127.*
+  - 10.*
+  - 172.16.*
+  - 172.17.*
+  - 172.18.*
+  - 172.19.*
+  - 172.20.*
+  - 172.21.*
+  - 172.22.*
+  - 172.23.*
+  - 172.24.*
+  - 172.25.*
+  - 172.26.*
+  - 172.27.*
+  - 172.28.*
+  - 172.29.*
+  - 172.30.*
+  - 172.31.*
+  - 192.168.*
+  - <local>
+# 系统代理跳过列表 起作用的
+cfw-bypass:
+  # 直连列表
+  # MyList
+  - "*.13th.tech"
+  - "*.423down.com"
+  - "*.bokecc.com"
+  - "*.chaipip.com"
+  - "*.chinaplay.store"
+  - "*.hrtsea.com"
+  - "*.kaikeba.com"
+  - "*.laomo.me"
+  - "*.mpyit.com"
+  - "*.msftconnecttest.com"
+  - "*.msftncsi.com"
+  - "*.qupu123.com"
+  - "*.pdfwifi.com"
+  - "*.zhenguanyu.biz"
+  - "*.zhenguanyu.com"
+  - "*.snapdrop.net"
+  - "*.tebex.io"
+  # CN域名直连(中国|公司|网络)
+  - "*.cn"
+  - "*.xn--fiqs8s"
+  - "*.xn--55qx5d"
+  - "*.xn--io0a7i"
+  # 中国国内常见域名关键词直连
+  - "*360buy*"
+  - "*alicdn*"
+  - "*alimama*"
+  - "*alipay*"
+  - "*appzapp*"
+  - "*baidupcs*"
+  - "*bilibili*"
+  - "*ccgslb*"
+  - "*chinacache*"
+  - "*duobao*"
+  - "*jdpay*"
+  - "*moke*"
+  - "*qhimg*"
+  - "*vpimg*"
+  - "*xiami*"
+  - "*xiaomi*"
+  # 360
+  - "*.360.com"
+  - "*.360kuai.com"
+  - "*.360safe.com"
+  - "*.dhrest.com"
+  - "*.qhres.com"
+  - "*.qhstatic.com"
+  - "*.qhupdate.com"
+  - "*.so.com"
+  # 4399
+  - "*.4399.com"
+  - "*.4399pk.com"
+  - "*.5054399.com"
+  - "*.img4399.com"
+  # 58
+  - "*.58.com"
+  # Alibaba
+  - "*.1688.com"
+  - "*.aliapp.org"
+  - "*.alibaba.com"
+  - "*.alibabacloud.com"
+  - "*.alibabachengdun.com"
+  - "*.alibabausercontent.com"
+  - "*.alicdn.com"
+  - "*.alicloudccp.com"
+  - "*.aliexpress.com"
+  - "*.aliimg.com"
+  - "*.alikunlun.com"
+  - "*.alipay.com"
+  - "*.alipayobjects.com"
+  - "*.alisoft.com"
+  - "*.aliyun.com"
+  - "*.aliyuncdn.com"
+  - "*.aliyuncs.com"
+  - "*.aliyundrive.com"
+  - "*.aliyundrive.net"
+  - "*.amap.com"
+  - "*.autonavi.com"
+  - "*.dingtalk.com"
+  - "*.ele.me"
+  - "*.elemecdn.com"
+  - "*.hichina.com"
+  - "*.mmstat.com"
+  - "*.mxhichina.com"
+  - "*.soku.com"
+  - "*.taobao.com"
+  - "*.taobaocdn.com"
+  - "*.tbcache.com"
+  - "*.tbcdn.cn"
+  - "*.tbcdn.com"
+  - "*.tmall.com"
+  - "*.tmall.hk"
+  - "*.ucweb.com"
+  - "*.xiami.com"
+  - "*.xiami.net"
+  - "*.ykimg.com"
+  - "*.youku.com"
+  - "*.qwen.ai"
+  # Baidu
+  - "*.baidu.com"
+  - "*.baidubcr.com"
+  - "*.baidupcs.com"
+  - "*.baidustatic.com"
+  - "*.bcebos.com"
+  - "*.bdimg.com"
+  - "*.bdstatic.com"
+  - "*.bdurl.net"
+  - "*.hao123.com"
+  - "*.hao123img.com"
+  - "*.jomodns.com"
+  - "*.yunjiasu-cdn.net"
+  # Bilibili
+  - "*.acg.tv"
+  - "*.acgvideo.com"
+  - "*.b23.tv"
+  - "*.bigfun.cn"
+  - "*.bigfunapp.cn"
+  - "*.biliapi.com"
+  - "*.biliapi.net"
+  - "*.bilibili.com"
+  - "*.bilibili.co"
+  - "*.biliintl.co"
+  - "*.biligame.com"
+  - "*.biligame.net"
+  - "*.bilivideo.com"
+  - "*.bilivideo.cn"
+  - "*.hdslb.com"
+  - "*.im9.com"
+  - "*.smtcdns.net"
+  # ByteDance
+  - "*.amemv.com"
+  - "*.bdxiguaimg.com"
+  - "*.bdxiguastatic.com"
+  - "*.byted-static.com"
+  - "*.bytedance.com"
+  - "*.bytedance.net"
+  - "*.bytedns.net"
+  - "*.bytednsdoc.com"
+  - "*.bytegoofy.com"
+  - "*.byteimg.com"
+  - "*.bytescm.com"
+  - "*.bytetos.com"
+  - "*.bytexservice.com"
+  - "*.douyin.com"
+  - "*.douyincdn.com"
+  - "*.douyinpic.com"
+  - "*.douyinstatic.com"
+  - "*.douyinvod.com"
+  - "*.feelgood.cn"
+  - "*.feiliao.com"
+  - "*.gifshow.com"
+  - "*.huoshan.com"
+  - "*.huoshanzhibo.com"
+  - "*.ibytedapm.com"
+  - "*.iesdouyin.com"
+  - "*.ixigua.com"
+  - "*.kspkg.com"
+  - "*.pstatp.com"
+  - "*.snssdk.com"
+  - "*.toutiao.com"
+  - "*.toutiao13.com"
+  - "*.toutiaoapi.com"
+  - "*.toutiaocdn.com"
+  - "*.toutiaocdn.net"
+  - "*.toutiaocloud.com"
+  - "*.toutiaohao.com"
+  - "*.toutiaohao.net"
+  - "*.toutiaoimg.com"
+  - "*.toutiaopage.com"
+  - "*.wukong.com"
+  - "*.zijieapi.com"
+  - "*.zijieimg.com"
+  - "*.zjbyte.com"
+  - "*.zjcdn.com"
+  # CCTV
+  - "*.cctv.com"
+  - "*.cctvpic.com"
+  - "*.livechina.com"
+  # ChinaOneKeyLogin 运营商一键登录
+  - "auth.wosms.cn"
+  - "config.cmpassport.com"
+  - "enrichgw.10010.com"
+  - "hmrz.wo.cn"
+  - "id.mail.wo.cn"
+  - "log.cmpassport.com"
+  - "log1.cmpassport.com"
+  - "mdn.open.wo.cn"
+  - "nishub1.10010.com"
+  - "opencloud.wostore.cn"
+  - "ye.dun.163yun.com"
+  - "*.auth.wo.cn"
+  - "*.cmpassport.com"
+  - "*.id6.me"
+  - "*.mob.com"
+  - "*.open.e.189.cn"
+  # ChinaNet
+  - "*.21cn.com"
+  # DiDi
+  - "*.didialift.com"
+  - "*.didiglobal.com"
+  - "*.udache.com"
+  # Douyu 斗鱼
+  - "*.bytefcdnrd.com"
+  - "*.edgesrv.com"
+  - "*.douyu.com"
+  - "*.douyu.tv"
+  - "*.douyucdn.cn"
+  - "*.douyuscdn.com"
+  - "*.douyutv.com"
+  # Epic
+  - "*.epicgames.com"
+  - "*.epicgames.dev"
+  - "*.helpshift.com"
+  - "*.paragon.com"
+  - "*.unrealengine.com"
+  # HuaWei
+  - "*.dbankcdn.com"
+  - "*.hc-cdn.com"
+  - "*.hicloud.com"
+  - "*.hihonor.com"
+  - "*.huawei.com"
+  - "*.huaweicloud.com"
+  - "*.huaweishop.net"
+  - "*.hwccpc.com"
+  - "*.vmall.com"
+  - "*.vmallres.com"
+  # Heytap
+  - "*.allawnfs.com"
+  - "*.allawno.com"
+  - "*.allawntech.com"
+  - "*.coloros.com"
+  - "*.heytap.com"
+  - "*.heytapcs.com"
+  - "*.heytapdownload.com"
+  - "*.heytapimage.com"
+  - "*.heytapmobi.com"
+  - "*.oppo.com"
+  - "*.oppoer.me"
+  - "*.oppomobile.com"
+  # Iflytek 科大讯飞
+  - "*.iflyink.com"
+  - "*.iflyrec.com"
+  - "*.iflytek.com"
+  # Iqiyi
+  - "*.71.am"
+  - "*.71edge.com"
+  - "*.iqiyi.com"
+  - "*.iqiyipic.com"
+  - "*.ppsimg.com"
+  - "*.qiyi.com"
+  - "*.qiyipic.com"
+  - "*.qy.net"
+  # JD
+  - "*.360buy.com"
+  - "*.360buyimg.com"
+  - "*.jcloudcs.com"
+  - "*.jd.com"
+  - "*.jd.hk"
+  - "*.jdcloud.com"
+  - "*.jdpay.com"
+  - "*.paipai.com"
+  # Kingsoft
+  - "*.iciba.com"
+  - "*.ksosoft.com"
+  - "*.ksyun.com"
+  # Kuaishou 快手
+  - "*.kuaishou.com"
+  - "*.yximgs.com"
+  # Meitu
+  - "*.meitu.com"
+  - "*.meitudata.com"
+  - "*.meitustat.com"
+  - "*.meipai.com"
+  # LeTV 乐视
+  - "*.le.com"
+  - "*.lecloud.com"
+  - "*.letv.com"
+  - "*.letvcloud.com"
+  - "*.letvimg.com"
+  - "*.letvlive.com"
+  - "*.letvstore.com"
+  # MGTV 芒果TV
+  - "*.hitv.com"
+  - "*.hunantv.com"
+  - "*.mgtv.com"
+  # MI
+  - "*.duokan.com"
+  - "*.mi-img.com"
+  - "*.mi.com"
+  - "*.miui.com"
+  - "*.xiaomi.com"
+  - "*.xiaomi.net"
+  - "*.xiaomicp.com"
+  # NetEase
+  - "*.126.com"
+  - "*.126.net"
+  - "*.127.net"
+  - "*.163.com"
+  - "*.163yun.com"
+  - "*.lofter.com"
+  - "*.netease.com"
+  - "*.ydstatic.com"
+  - "*.youdao.com"
+  # PPTV、PPLive
+  - "*.pplive.com"
+  - "*.pptv.com"
+  # PDD 拼多多
+  - "*.pinduoduo.com"
+  - "*.yangkeduo.com"
+  # Sina
+  - "*.leju.com"
+  - "*.miaopai.com"
+  - "*.sina.com"
+  - "*.sina.com.cn"
+  - "*.sina.cn"
+  - "*.sinaapp.com"
+  - "*.sinaapp.cn"
+  - "*.sinaimg.com"
+  - "*.sinaimg.cn"
+  - "*.weibo.com"
+  - "*.weibo.cn"
+  - "*.weibocdn.com"
+  - "*.weibocdn.cn"
+  - "*.xiaoka.tv"
+  # Sohu Sogo
+  - "*.go2map.com"
+  - "*.sogo.com"
+  - "*.sogou.com"
+  - "*.sogoucdn.com"
+  - "*.sohu-inc.com"
+  - "*.sohu.com"
+  - "*.sohucs.com"
+  - "*.sohuno.com"
+  - "*.sohurdc.com"
+  - "*.v-56.com"
+  # Sony
+  - "*.playstation.com"
+  - "*.playstation.net"
+  - "*.playstationnetwork.com"
+  - "*.sony.com"
+  - "*.sonyentertainmentnetwork.com"
+  # SteamCN
+  - "*.cm.steampowered.com"
+  - "*.steamcontent.com"
+  - "*.steamusercontent.com"
+  - "*.steamchina.com"
+  - "csgo.wmsj.cn"
+  - "dota2.wmsj.cn"
+  - "wmsjsteam.com"
+  - "dl.steam.clngaa.com"
+  - "dl.steam.ksyna.com"
+  - "st.dl.bscstorage.net"
+  - "st.dl.eccdnx.com"
+  - "st.dl.pinyuncloud.com"
+  - "xz.pphimalayanrt.com"
+  - "steampipe.steamcontent.tnkjmec.com"
+  - "steampowered.com.8686c.com"
+  - "steamstatic.com.8686c.com"
+  # Tencent
+  - "*.foxmail.com"
+  - "*.gtimg.com"
+  - "*.idqqimg.com"
+  - "*.igamecj.com"
+  - "*.myapp.com"
+  - "*.myqcloud.com"
+  - "*.qq.com"
+  - "*.qqmail.com"
+  - "*.qqurl.com"
+  - "*.smtcdns.com"
+  - "*.smtcdns.net"
+  - "*.soso.com"
+  - "*.tencent-cloud.net"
+  - "*.tencent.com"
+  - "*.tencentmind.com"
+  - "*.tenpay.com"
+  - "*.wechat.com"
+  - "*.weixin.com"
+  - "*.weiyun.com"
+  # Vip 唯品会
+  - "*.appsimg.com"
+  - "*.appvipshop.com"
+  - "*.vip.com"
+  - "*.vipstatic.com"
+  # Ximalaya 喜马拉雅
+  - "*.ximalaya.com"
+  - "*.xmcdn.com"
+  # Xunlei 迅雷
+  - "*.00cdn.com"
+  - "*.88cdn.com"
+  - "*.kanimg.com"
+  - "*.kankan.com"
+  - "*.p2cdn.com"
+  - "*.sandai.net"
+  - "*.thundercdn.com"
+  - "*.xunlei.com"
+  # YYeTs 人人影视
+  - "*.got001.com"
+  - "*.p4pfile.com"
+  - "*.rrys.tv"
+  - "*.rrys2020.com"
+  - "*.yyets.com"
+  - "*.zimuzu.io"
+  - "*.zimuzu.tv"
+  - "*.zmz001.com"
+  - "*.zmz002.com"
+  - "*.zmz003.com"
+  - "*.zmz004.com"
+  - "*.zmz2019.com"
+  - "*.zmzapi.com"
+  - "*.zmzapi.net"
+  - "*.zmzfile.com"
+  # TeamViewer
+  - "*.teamviewer.com"
+  # Public Direct CDN 公共直连
+  - "*.baomitu.com"
+  - "*.bootcss.com"
+  - "*.jiasule.com"
+  - "*.staticfile.org"
+  - "*.upaiyun.com"
+  # China DNS
+  - "*.doh.pub"
+  - "*.dns.alidns.com"
+  - "*.doh.360.cn"
+  # AccelerateDirectSites
+  - "*.10010.com"
+  - "*.115.com"
+  - "*.12306.com"
+  - "*.17173.com"
+  - "*.178.com"
+  - "*.17k.com"
+  - "*.360doc.com"
+  - "*.36kr.com"
+  - "*.3dmgame.com"
+  - "*.51cto.com"
+  - "*.51job.com"
+  - "*.51jobcdn.com"
+  - "*.56.com"
+  - "*.8686c.com"
+  - "*.abchina.com"
+  - "*.abercrombie.com"
+  - "*.acfun.tv"
+  - "*.air-matters.com"
+  - "*.air-matters.io"
+  - "*.aixifan.com"
+  - "*.algocasts.io"
+  - "*.asklink.com"
+  - "*.babytree.com"
+  - "*.babytreeimg.com"
+  - "*.baicizhan.com"
+  - "*.baidupan.com"
+  - "*.baike.com"
+  - "*.biqudu.com"
+  - "*.biquge.com"
+  - "*.bitauto.com"
+  - "*.bosszhipin.com"
+  - "*.c-ctrip.com"
+  - "*.camera360.com"
+  - "*.cdnmama.com"
+  - "*.chaoxing.com"
+  - "*.che168.com"
+  - "*.chinacache.net"
+  - "*.chinaso.com"
+  - "*.chinaz.com"
+  - "*.chinaz.net"
+  - "*.chuimg.com"
+  - "*.cibntv.net"
+  - "*.clouddn.com"
+  - "*.cloudxns.net"
+  - "*.cn163.net"
+  - "*.cnblogs.com"
+  - "*.cnki.net"
+  - "*.cnmstl.net"
+  - "*.coolapk.com"
+  - "*.coolapkmarket.com"
+  - "*.csdn.net"
+  - "*.ctrip.com"
+  - "*.dangdang.com"
+  - "*.dfcfw.com"
+  - "*.dianping.com"
+  - "*.dilidili.wang"
+  - "*.douban.com"
+  - "*.doubanio.com"
+  - "*.dpfile.com"
+  - "*.duowan.com"
+  - "*.dxycdn.com"
+  - "*.dytt8.net"
+  - "*.easou.com"
+  - "*.eastday.com"
+  - "*.eastmoney.com"
+  - "*.ecitic.com"
+  - "*.element-plus.org"
+  - "*.ewqcxz.com"
+  - "*.fang.com"
+  - "*.fantasy.tv"
+  - "*.feng.com"
+  - "*.fengkongcloud.com"
+  - "*.fir.im"
+  - "*.frdic.com"
+  - "*.fresh-ideas.cc"
+  - "*.ganji.com"
+  - "*.ganjistatic1.com"
+  - "*.geetest.com"
+  - "*.geilicdn.com"
+  - "*.ghpym.com"
+  - "*.godic.net"
+  - "*.guazi.com"
+  - "*.gwdang.com"
+  - "*.gzlzfm.com"
+  - "*.haibian.com"
+  - "*.haosou.com"
+  - "*.hollisterco.com"
+  - "*.hongxiu.com"
+  - "*.huajiao.com"
+  - "*.hupu.com"
+  - "*.huxiucdn.com"
+  - "*.huya.com"
+  - "*.ifeng.com"
+  - "*.ifengimg.com"
+  - "*.images-amazon.com"
+  - "*.infzm.com"
+  - "*.ipip.net"
+  - "*.it168.com"
+  - "*.ithome.com"
+  - "*.ixdzs.com"
+  - "*.jianguoyun.com"
+  - "*.jianshu.com"
+  - "*.jianshu.io"
+  - "*.jianshuapi.com"
+  - "*.jiathis.com"
+  - "*.jmstatic.com"
+  - "*.jumei.com"
+  - "*.kaola.com"
+  - "*.knewone.com"
+  - "*.koowo.com"
+  - "*.koyso.com"
+  - "*.ksyungslb.com"
+  - "*.kuaidi100.com"
+  - "*.kugou.com"
+  - "*.lancdns.com"
+  - "*.landiannews.com"
+  - "*.lanzou.com"
+  - "*.lanzoui.com"
+  - "*.lanzoux.com"
+  - "*.lemicp.com"
+  - "*.letitfly.me"
+  - "*.lizhi.fm"
+  - "*.lizhi.io"
+  - "*.lizhifm.com"
+  - "*.luoo.net"
+  - "*.lvmama.com"
+  - "*.lxdns.com"
+  - "*.maoyan.com"
+  - "*.meilishuo.com"
+  - "*.meituan.com"
+  - "*.meituan.net"
+  - "*.meizu.com"
+  - "*.migucloud.com"
+  - "*.miguvideo.com"
+  - "*.mobike.com"
+  - "*.mogu.com"
+  - "*.mogucdn.com"
+  - "*.mogujie.com"
+  - "*.moji.com"
+  - "*.moke.com"
+  - "*.msstatic.com"
+  - "*.mubu.com"
+  - "*.myunlu.com"
+  - "*.nruan.com"
+  - "*.nuomi.com"
+  - "*.onedns.net"
+  - "*.oneplus.com"
+  - "*.onlinedown.net"
+  - "*.oracle.com"
+  - "*.oschina.net"
+  - "*.ourdvs.com"
+  - "*.polyv.net"
+  - "*.qbox.me"
+  - "*.qcloud.com"
+  - "*.qcloudcdn.com"
+  - "*.qdaily.com"
+  - "*.qdmm.com"
+  - "*.qhimg.com"
+  - "*.qianqian.com"
+  - "*.qidian.com"
+  - "*.qihucdn.com"
+  - "*.qin.io"
+  - "*.qiniu.com"
+  - "*.qiniucdn.com"
+  - "*.qiniudn.com"
+  - "*.qiushibaike.com"
+  - "*.quanmin.tv"
+  - "*.qunar.com"
+  - "*.qunarzz.com"
+  - "*.realme.com"
+  - "*.repaik.com"
+  - "*.ruguoapp.com"
+  - "*.runoob.com"
+  - "*.sankuai.com"
+  - "*.segmentfault.com"
+  - "*.sf-express.com"
+  - "*.shumilou.net"
+  - "*.simplecd.me"
+  - "*.smzdm.com"
+  - "*.snwx.com"
+  - "*.soufunimg.com"
+  - "*.sspai.com"
+  - "*.startssl.com"
+  - "*.suning.com"
+  - "*.synology.com"
+  - "*.taihe.com"
+  - "*.th-sjy.com"
+  - "*.tianqi.com"
+  - "*.tianqistatic.com"
+  - "*.tianyancha.com"
+  - "*.tianyaui.com"
+  - "*.tietuku.com"
+  - "*.tiexue.net"
+  - "*.tmiaoo.com"
+  - "*.trip.com"
+  - "*.ttmeiju.com"
+  - "*.tudou.com"
+  - "*.tuniu.com"
+  - "*.tuniucdn.com"
+  - "*.umengcloud.com"
+  - "*.upyun.com"
+  - "*.uxengine.net"
+  - "*.videocc.net"
+  - "*.vivo.com"
+  - "*.wandoujia.com"
+  - "*.weather.com"
+  - "*.weico.cc"
+  - "*.weidian.com"
+  - "*.weiphone.com"
+  - "*.weiphone.net"
+  - "*.womai.com"
+  - "*.wscdns.com"
+  - "*.xdrig.com"
+  - "*.xhscdn.com"
+  - "*.xiachufang.com"
+  - "*.xiaohongshu.com"
+  - "*.xiaojukeji.com"
+  - "*.xinhuanet.com"
+  - "*.xip.io"
+  - "*.xitek.com"
+  - "*.xiumi.us"
+  - "*.xslb.net"
+  - "*.xueqiu.com"
+  - "*.yach.me"
+  - "*.yeepay.com"
+  - "*.yhd.com"
+  - "*.yihaodianimg.com"
+  - "*.yinxiang.com"
+  - "*.yinyuetai.com"
+  - "*.yixia.com"
+  - "*.ys168.com"
+  - "*.yuewen.com"
+  - "*.yy.com"
+  - "*.yystatic.com"
+  - "*.zealer.com"
+  - "*.zhangzishi.cc"
+  - "*.zhanqi.tv"
+  - "*.zhaopin.com"
+  - "*.zhihu.com"
+  - "*.zhimg.com"
+  - "*.zhipin.com"
+  - "*.zhongsou.com"
+  - "*.zhuihd.com"
+  - "*.cmbchina.com"
+  - "*.95516.com"
+  - "localhost"
+  - 127.*
+  - 10.*
+  - 172.16.*
+  - 172.17.*
+  - 172.18.*
+  - 172.19.*
+  - 172.20.*
+  - 172.21.*
+  - 172.22.*
+  - 172.23.*
+  - 172.24.*
+  - 172.25.*
+  - 172.26.*
+  - 172.27.*
+  - 172.28.*
+  - 172.29.*
+  - 172.30.*
+  - 172.31.*
+  - 192.168.*
+  - <local>
