@@ -1,6 +1,6 @@
 # Name: emos-shadowrocket
 # Author: binary
-# Updated: 2026-05-07 03:51:54
+# Updated: 2026-05-09 03:25:02
 # Format: Shadowrocket rule list
 
 DOMAIN,a.aiaa.top
@@ -8,6 +8,7 @@ DOMAIN,auto.embys.dpdns.org
 DOMAIN,clun.top
 DOMAIN,dx.dirige.de5.net
 DOMAIN,emby.fuk.indevs.in
+DOMAIN,emby.lukar.ccwu.cc
 DOMAIN,emby.smartstart.eu.org
 DOMAIN,emos-cn.078899.xyz
 DOMAIN,emos.001011.de5.net
