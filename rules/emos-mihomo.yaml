@@ -1,4 +1,4 @@
-# Updated: 2026-05-09 03:25:02
+# Updated: 2026-05-20 03:56:55
 payload:
   - DOMAIN,a.aiaa.top
   - DOMAIN,auto.embys.dpdns.org
@@ -7,6 +7,7 @@ payload:
   - DOMAIN,emby.fuk.indevs.in
   - DOMAIN,emby.lukar.ccwu.cc
   - DOMAIN,emby.smartstart.eu.org
+  - DOMAIN,embycf.dpdns.org
   - DOMAIN,emos-cn.078899.xyz
   - DOMAIN,emos.001011.de5.net
   - DOMAIN,emos.030666.xyz
