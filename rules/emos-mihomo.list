@@ -1,6 +1,6 @@
 # Name: emos-mihomo-direct
 # Author: binary
-# Updated: 2026-05-20 03:56:55
+# Updated: 2026-05-22 03:59:04
 # Format: Mihomo rules list
 
 DOMAIN,a.aiaa.top,DIRECT
@@ -10,14 +10,15 @@ DOMAIN,dx.dirige.de5.net,DIRECT
 DOMAIN,emby.fuk.indevs.in,DIRECT
 DOMAIN,emby.lukar.ccwu.cc,DIRECT
 DOMAIN,emby.smartstart.eu.org,DIRECT
-DOMAIN,embycf.dpdns.org,DIRECT
 DOMAIN,emos-cn.078899.xyz,DIRECT
 DOMAIN,emos.001011.de5.net,DIRECT
 DOMAIN,emos.030666.xyz,DIRECT
+DOMAIN,emos.033388.xyz,DIRECT
 DOMAIN,emos.137127.xyz,DIRECT
 DOMAIN,emos.1qcg.lol,DIRECT
 DOMAIN,emos.200038.xyz,DIRECT
 DOMAIN,emos.255432.cc.cd,DIRECT
+DOMAIN,emos.585.de5.net,DIRECT
 DOMAIN,emos.660990.xyz,DIRECT
 DOMAIN,emos.767873.xyz,DIRECT
 DOMAIN,emos.ak47.us.kg,DIRECT
@@ -37,6 +38,7 @@ DOMAIN,emos.wwzb.de,DIRECT
 DOMAIN,emos6.dolby.dpdns.org,DIRECT
 DOMAIN,emosemos.cc.cd,DIRECT
 DOMAIN,hk.f2f.pp.ua,DIRECT
+DOMAIN,iuuvbd.eu.cc,DIRECT
 DOMAIN,lt.dirige.de5.net,DIRECT
 DOMAIN,media.emos.club,DIRECT
 DOMAIN,newemos.mt6688999.dpdns.org,DIRECT
