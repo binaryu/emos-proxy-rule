@@ -1,6 +1,6 @@
 # Name: emos-quantumultx
 # Author: binary
-# Updated: 2026-05-22 03:59:04
+# Updated: 2026-05-24 03:17:22
 # Format: Quantumult X rule list
 
 HOST,a.aiaa.top,DIRECT
@@ -11,7 +11,6 @@ HOST,emby.fuk.indevs.in,DIRECT
 HOST,emby.lukar.ccwu.cc,DIRECT
 HOST,emby.smartstart.eu.org,DIRECT
 HOST,emos-cn.078899.xyz,DIRECT
-HOST,emos.001011.de5.net,DIRECT
 HOST,emos.030666.xyz,DIRECT
 HOST,emos.033388.xyz,DIRECT
 HOST,emos.137127.xyz,DIRECT
