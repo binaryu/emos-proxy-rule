@@ -1,12 +1,14 @@
 # Name: emos-loon
 # Author: binary
-# Updated: 2026-06-11 04:35:25
+# Updated: 2026-06-18 04:19:14
 # Format: Loon domain list
 
+DOMAIN,11.himuzi.com
 DOMAIN,a.aiaa.top
 DOMAIN,auto.embys.dpdns.org
 DOMAIN,clun.top
 DOMAIN,dx.dirige.de5.net
+DOMAIN,emby.cf99.dpdns.org
 DOMAIN,emby.fuk.indevs.in
 DOMAIN,emby.lukar.ccwu.cc
 DOMAIN,emby.smartstart.eu.org
