@@ -1,12 +1,13 @@
 # Name: emos-surge
 # Author: binary
-# Updated: 2026-06-19 04:30:03
+# Updated: 2026-06-20 03:53:39
 # Format: Surge rule list
 
 DOMAIN,a.aiaa.top
 DOMAIN,auto.embys.dpdns.org
 DOMAIN,clun.top
 DOMAIN,dx.dirige.de5.net
+DOMAIN,emby.beip.kdns.fr
 DOMAIN,emby.cf99.dpdns.org
 DOMAIN,emby.fuk.indevs.in
 DOMAIN,emby.lukar.ccwu.cc
