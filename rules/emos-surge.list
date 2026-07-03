@@ -1,6 +1,6 @@
 # Name: emos-surge
 # Author: binary
-# Updated: 2026-06-25 03:51:18
+# Updated: 2026-07-04 03:35:01
 # Format: Surge rule list
 
 DOMAIN,a.aiaa.top
@@ -50,3 +50,4 @@ DOMAIN,proxy.2019102.xyz
 DOMAIN,rp.yang1025.dpdns.org
 DOMAIN,xn--ct9h.cc.cd
 DOMAIN,yd.dirige.de5.net
+DOMAIN,zxcn.cc.cd
