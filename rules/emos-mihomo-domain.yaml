@@ -1,4 +1,4 @@
-# Updated: 2026-07-10 03:51:22
+# Updated: 2026-07-15 03:24:47
 payload:
   - a.aiaa.top
   - auto.embys.dpdns.org
@@ -29,6 +29,7 @@ payload:
   - emos.emby.bio
   - emos.goldenarch.qzz.io
   - emos.jeanne.dpdns.org
+  - emos.lyra.us.ci
   - emos.mt6688999.dpdns.org
   - emos.saga8.dpdns.org
   - emos.tpuqc.dpdns.org
