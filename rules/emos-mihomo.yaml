@@ -1,4 +1,4 @@
-# Updated: 2026-07-23 03:25:37
+# Updated: 2026-07-28 03:40:03
 payload:
   - DOMAIN,a.aiaa.top
   - DOMAIN,auto.embys.dpdns.org
@@ -42,6 +42,7 @@ payload:
   - DOMAIN,fake.xx.kg
   - DOMAIN,fd.9v.cc.cd
   - DOMAIN,fd.emya.cc.cd
+  - DOMAIN,fd.jzdj.dpdns.org
   - DOMAIN,hk.f2f.pp.ua
   - DOMAIN,iuuvbd.eu.cc
   - DOMAIN,lt.dirige.de5.net
