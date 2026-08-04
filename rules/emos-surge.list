@@ -1,6 +1,6 @@
 # Name: emos-surge
 # Author: binary
-# Updated: 2026-07-28 03:40:03
+# Updated: 2026-08-05 03:41:34
 # Format: Surge rule list
 
 DOMAIN,a.aiaa.top
@@ -30,6 +30,7 @@ DOMAIN,emos.dolby.dpdns.org
 DOMAIN,emos.e.265209.xyz
 DOMAIN,emos.emby.bio
 DOMAIN,emos.goldenarch.qzz.io
+DOMAIN,emos.htao.indevs.in
 DOMAIN,emos.jeanne.dpdns.org
 DOMAIN,emos.lyra.us.ci
 DOMAIN,emos.mt6688999.dpdns.org

@@ -1,4 +1,4 @@
-# Updated: 2026-07-28 03:40:03
+# Updated: 2026-08-05 03:41:34
 payload:
   - DOMAIN,a.aiaa.top
   - DOMAIN,auto.embys.dpdns.org
@@ -27,6 +27,7 @@ payload:
   - DOMAIN,emos.e.265209.xyz
   - DOMAIN,emos.emby.bio
   - DOMAIN,emos.goldenarch.qzz.io
+  - DOMAIN,emos.htao.indevs.in
   - DOMAIN,emos.jeanne.dpdns.org
   - DOMAIN,emos.lyra.us.ci
   - DOMAIN,emos.mt6688999.dpdns.org
