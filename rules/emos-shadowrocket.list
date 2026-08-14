@@ -1,6 +1,6 @@
 # Name: emos-shadowrocket
 # Author: binary
-# Updated: 2026-08-14 03:06:32
+# Updated: 2026-08-15 02:58:39
 # Format: Shadowrocket rule list
 
 DOMAIN,a.aiaa.top
@@ -38,7 +38,6 @@ DOMAIN,emos.tuu.cc.cd
 DOMAIN,emos.ujmb.dpdns.org
 DOMAIN,emos.wangjunqiang.indevs.in
 DOMAIN,emos.wwzb.de
-DOMAIN,emos.xzy.qzz.io
 DOMAIN,emos6.dolby.dpdns.org
 DOMAIN,emosemos.cc.cd
 DOMAIN,fake.xx.kg
@@ -56,4 +55,3 @@ DOMAIN,rp.yang1025.dpdns.org
 DOMAIN,v6-emos.200038.xyz
 DOMAIN,xn--ct9h.cc.cd
 DOMAIN,yd.dirige.de5.net
-DOMAIN,zxcn.de
