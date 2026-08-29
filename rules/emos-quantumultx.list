@@ -1,6 +1,6 @@
 # Name: emos-quantumultx
 # Author: binary
-# Updated: 2026-08-21 02:43:49
+# Updated: 2026-08-30 04:41:33
 # Format: Quantumult X rule list
 
 HOST,a.aiaa.top,DIRECT
@@ -46,6 +46,7 @@ HOST,fd.9v.cc.cd,DIRECT
 HOST,fd.emya.cc.cd,DIRECT
 HOST,fd.jzdj.dpdns.org,DIRECT
 HOST,hk.f2f.pp.ua,DIRECT
+HOST,hk1.zxcn.de,DIRECT
 HOST,iuuvbd.eu.cc,DIRECT
 HOST,lt.dirige.de5.net,DIRECT
 HOST,media.emos.club,DIRECT
@@ -55,3 +56,4 @@ HOST,proxy.2019102.xyz,DIRECT
 HOST,rp.yang1025.dpdns.org,DIRECT
 HOST,xn--ct9h.cc.cd,DIRECT
 HOST,yd.dirige.de5.net,DIRECT
+HOST,zjw.586934.xyz,DIRECT

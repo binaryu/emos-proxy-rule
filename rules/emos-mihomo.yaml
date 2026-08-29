@@ -1,4 +1,4 @@
-# Updated: 2026-08-21 02:43:49
+# Updated: 2026-08-30 04:41:33
 payload:
   - DOMAIN,a.aiaa.top
   - DOMAIN,auto.embys.dpdns.org
@@ -43,6 +43,7 @@ payload:
   - DOMAIN,fd.emya.cc.cd
   - DOMAIN,fd.jzdj.dpdns.org
   - DOMAIN,hk.f2f.pp.ua
+  - DOMAIN,hk1.zxcn.de
   - DOMAIN,iuuvbd.eu.cc
   - DOMAIN,lt.dirige.de5.net
   - DOMAIN,media.emos.club
@@ -52,3 +53,4 @@ payload:
   - DOMAIN,rp.yang1025.dpdns.org
   - DOMAIN,xn--ct9h.cc.cd
   - DOMAIN,yd.dirige.de5.net
+  - DOMAIN,zjw.586934.xyz
