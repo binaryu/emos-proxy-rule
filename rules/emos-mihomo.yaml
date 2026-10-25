@@ -1,4 +1,4 @@
-# Updated: 2026-10-20 06:08:31
+# Updated: 2026-10-26 04:36:12
 payload:
   - DOMAIN,a.aiaa.top
   - DOMAIN,clun.top
@@ -32,6 +32,7 @@ payload:
   - DOMAIN,emos.wwzb.de
   - DOMAIN,emos.xunye8.dpdns.org
   - DOMAIN,emos6.dolby.dpdns.org
+  - DOMAIN,example.com
   - DOMAIN,fake.xx.kg
   - DOMAIN,fandai.buzhidao0.indevs.in
   - DOMAIN,fd.568686.xyz
