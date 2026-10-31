@@ -1,9 +1,10 @@
-# Updated: 2026-10-30 06:34:54
+# Updated: 2026-11-01 05:13:19
 payload:
   - DOMAIN,a.aiaa.top
   - DOMAIN,clun.top
   - DOMAIN,dx.dirige.de5.net
   - DOMAIN,emby-proxy-panel.jetchao2.kdns.fr
+  - DOMAIN,emby.akingovo.dpdns.org
   - DOMAIN,emby.cf99.dpdns.org
   - DOMAIN,emby.fuk.indevs.in
   - DOMAIN,emby.lukar.ccwu.cc
@@ -15,7 +16,6 @@ payload:
   - DOMAIN,emos.660990.xyz
   - DOMAIN,emos.767873.xyz
   - DOMAIN,emos.887178.xyz
-  - DOMAIN,emos.akingovo.dpdns.org
   - DOMAIN,emos.cnmbyd.xyz
   - DOMAIN,emos.cyclince.de
   - DOMAIN,emos.dirige.de5.net
