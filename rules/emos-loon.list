@@ -1,6 +1,6 @@
 # Name: emos-loon
 # Author: binary
-# Updated: 2026-11-02 05:50:47
+# Updated: 2026-11-06 07:27:11
 # Format: Loon domain list
 
 DOMAIN,a.aiaa.top
@@ -11,11 +11,13 @@ DOMAIN,emby.akingovo.dpdns.org
 DOMAIN,emby.cf99.dpdns.org
 DOMAIN,emby.fuk.indevs.in
 DOMAIN,emby.lukar.ccwu.cc
+DOMAIN,emby.lukar.dpdns.org
 DOMAIN,emby.smartstart.eu.org
 DOMAIN,emby.zxcn.de
 DOMAIN,emos.030666.xyz
 DOMAIN,emos.137127.xyz
 DOMAIN,emos.200038.xyz
+DOMAIN,emos.211985.kdns.fr
 DOMAIN,emos.660990.xyz
 DOMAIN,emos.767873.xyz
 DOMAIN,emos.887178.xyz
