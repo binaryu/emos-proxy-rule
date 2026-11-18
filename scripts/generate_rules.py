@@ -39,7 +39,7 @@ HOST_LABEL_RE = re.compile(r"^(?:xn--)?[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$")
 
 
 def fetch_data() -> list[dict]:
-    """Fetch raw JSON array from the remote API."""
+    """Fetch the proxy lines from the public wiki API."""
     request = Request(
         API_URL,
         headers={
@@ -64,8 +64,12 @@ def fetch_data() -> list[dict]:
     except json.JSONDecodeError as exc:
         raise RuntimeError(f"Failed to parse JSON response: {exc}") from exc
 
+    # The wiki API now wraps its former top-level array in a "lines" field.
+    if isinstance(data, dict):
+        data = data.get("lines")
+
     if not isinstance(data, list):
-        raise RuntimeError("Unexpected response type: expected a JSON array")
+        raise RuntimeError("Unexpected API response: expected a proxy lines array")
 
     return data
 
