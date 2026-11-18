@@ -1,6 +1,6 @@
 # Name: emos-mihomo-direct
 # Author: binary
-# Updated: 2026-11-09 05:50:54
+# Updated: 2026-11-18 08:56:17
 # Format: Mihomo rules list
 
 DOMAIN,a.aiaa.top,DIRECT
@@ -14,7 +14,7 @@ DOMAIN,emby.fuk.indevs.in,DIRECT
 DOMAIN,emby.lukar.ccwu.cc,DIRECT
 DOMAIN,emby.lukar.dpdns.org,DIRECT
 DOMAIN,emby.smartstart.eu.org,DIRECT
-DOMAIN,emby.zxcn.de,DIRECT
+DOMAIN,emby.yangzi775.xyz,DIRECT
 DOMAIN,emos.030666.xyz,DIRECT
 DOMAIN,emos.137127.xyz,DIRECT
 DOMAIN,emos.200038.xyz,DIRECT
@@ -22,33 +22,28 @@ DOMAIN,emos.211985.kdns.fr,DIRECT
 DOMAIN,emos.660990.xyz,DIRECT
 DOMAIN,emos.767873.xyz,DIRECT
 DOMAIN,emos.777666888.xyz,DIRECT
-DOMAIN,emos.887178.xyz,DIRECT
 DOMAIN,emos.cnmbyd.xyz,DIRECT
 DOMAIN,emos.cyclince.de,DIRECT
 DOMAIN,emos.dirige.de5.net,DIRECT
-DOMAIN,emos.dolby.dpdns.org,DIRECT
 DOMAIN,emos.e.265209.xyz,DIRECT
 DOMAIN,emos.goldenarch.qzz.io,DIRECT
-DOMAIN,emos.jeanne.dpdns.org,DIRECT
 DOMAIN,emos.liuer.linkpc.net,DIRECT
 DOMAIN,emos.lyra.us.ci,DIRECT
 DOMAIN,emos.mt6688999.dpdns.org,DIRECT
 DOMAIN,emos.saga8.dpdns.org,DIRECT
 DOMAIN,emos.tpuqc.dpdns.org,DIRECT
-DOMAIN,emos.tuu.cc.cd,DIRECT
 DOMAIN,emos.wangjunqiang.indevs.in,DIRECT
-DOMAIN,emos.wwzb.de,DIRECT
 DOMAIN,emos.xerodragon.dpdns.org,DIRECT
 DOMAIN,emos.xunye8.dpdns.org,DIRECT
-DOMAIN,emos6.dolby.dpdns.org,DIRECT
+DOMAIN,emos.zxcn.de,DIRECT
 DOMAIN,fake.xx.kg,DIRECT
 DOMAIN,fd.568686.xyz,DIRECT
 DOMAIN,fd.jzdj.dpdns.org,DIRECT
 DOMAIN,hk.f2f.pp.ua,DIRECT
 DOMAIN,lt.dirige.de5.net,DIRECT
 DOMAIN,media.emos.club,DIRECT
+DOMAIN,music.lukar.dpdns.org,DIRECT
 DOMAIN,newemos.mt6688999.dpdns.org,DIRECT
 DOMAIN,pro.111196123.xyz,DIRECT
 DOMAIN,yd.dirige.de5.net,DIRECT
 DOMAIN,yuzai.688688.eu.cc,DIRECT
-DOMAIN,zjw.586934.xyz,DIRECT
