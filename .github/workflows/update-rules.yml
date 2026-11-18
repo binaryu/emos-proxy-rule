@@ -2,6 +2,11 @@ name: Update Rules
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/update-rules.yml"
+      - "scripts/generate_rules.py"
   schedule:
     # GitHub Actions cron uses UTC.
     - cron: "0 18 * * *"
@@ -12,44 +17,53 @@ env:
 permissions:
   contents: write
 
+concurrency:
+  group: update-rules-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   update:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.ref }}
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
-          python-version: "3.x"
+          python-version: "3.13"
 
       - name: Install mihomo
+        env:
+          MIHOMO_VERSION: v1.19.34
+          MIHOMO_SHA256: 0c07340a01408d033dda4088ea2a4c1e4d82aeed7b2f84f7c046e93b6ff3290c
         run: |
-          MIHOMO_URL=$(curl -sL "https://api.github.com/repos/MetaCubeX/mihomo/releases/latest" \
-            | python3 -c "import sys,json; assets=json.load(sys.stdin)['assets']; print(next(a['browser_download_url'] for a in assets if 'linux-amd64' in a['name'] and a['name'].endswith('.gz') and 'compatible' not in a['name'] and '-v1-' not in a['name'] and '-go' not in a['name']))")
-          curl -fSL "$MIHOMO_URL" -o mihomo.gz
-          gunzip mihomo.gz
-          chmod +x mihomo
-          sudo mv mihomo /usr/local/bin/mihomo
+          mihomo_dir="$(mktemp -d "$RUNNER_TEMP/mihomo.XXXXXX")"
+          archive="$mihomo_dir/mihomo.gz"
+          curl -fsSL --retry 3 --connect-timeout 15 --max-time 120 \
+            "https://github.com/MetaCubeX/mihomo/releases/download/${MIHOMO_VERSION}/mihomo-linux-amd64-v1-${MIHOMO_VERSION}.gz" \
+            -o "$archive"
+          printf '%s  %s\n' "$MIHOMO_SHA256" "$archive" | sha256sum -c -
+          gzip -dc "$archive" > "$mihomo_dir/mihomo"
+          chmod +x "$mihomo_dir/mihomo"
+          "$mihomo_dir/mihomo" -v
+          echo "$mihomo_dir" >> "$GITHUB_PATH"
 
       - name: Generate rules
-        run: python scripts/generate_rules.py
-
-      - name: Check changes
-        id: check_changes
         run: |
-          if [[ -n "$(git status --porcelain)" ]]; then
-            echo "changed=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-          fi
+          command -v mihomo
+          python scripts/generate_rules.py
 
       - name: Commit and push
-        if: steps.check_changes.outputs.changed == 'true'
         run: |
+          git add -- rules
+          if git diff --cached --quiet -- rules; then
+            echo "Generated rules are unchanged."
+            exit 0
+          fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add rules
           git commit -m "chore: update generated rules"
-          git push
+          git push origin "HEAD:$GITHUB_REF"

@@ -10,6 +10,7 @@ import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
+from tempfile import TemporaryDirectory
 from typing import Iterable
 from urllib.error import URLError
 from urllib.parse import urlparse
@@ -222,20 +223,14 @@ def convert_mihomo_mrs(domain_yaml_path: Path, mrs_output_path: Path) -> bool:
         print("[WARN] mihomo binary not found in PATH; skipping .mrs generation.", file=sys.stderr)
         return False
 
-    try:
-        result = subprocess.run(
-            [mihomo_bin, "convert-ruleset", "domain", "yaml", str(domain_yaml_path), str(mrs_output_path)],
-            capture_output=True,
-            text=True,
-            timeout=30,
-        )
-        if result.returncode != 0:
-            print(f"[WARN] mihomo convert-ruleset failed: {result.stderr.strip()}", file=sys.stderr)
-            return False
-        return True
-    except (subprocess.TimeoutExpired, OSError) as exc:
-        print(f"[WARN] Failed to run mihomo convert-ruleset: {exc}", file=sys.stderr)
-        return False
+    subprocess.run(
+        [mihomo_bin, "convert-ruleset", "domain", "yaml", str(domain_yaml_path), str(mrs_output_path)],
+        check=True,
+        timeout=30,
+    )
+    if mrs_output_path.stat().st_size == 0:
+        raise RuntimeError("mihomo produced an empty .mrs file")
+    return True
 
 
 def generate_sing_box_ruleset(domains: list[str]) -> str:
@@ -341,10 +336,22 @@ def main() -> int:
         SING_BOX_FILE: generate_sing_box_ruleset(domains),
     }
 
-    for file_path, file_content in outputs.items():
-        write_file(file_path, file_content)
+    try:
+        RULES_DIR.mkdir(parents=True, exist_ok=True)
+        with TemporaryDirectory(dir=RULES_DIR) as directory:
+            staging = Path(directory)
+            for file_path, file_content in outputs.items():
+                write_file(staging / file_path.name, file_content)
 
-    mrs_generated = convert_mihomo_mrs(MIHOMO_DOMAIN_YAML_FILE, MIHOMO_MRS_FILE)
+            staged_mrs = staging / MIHOMO_MRS_FILE.name
+            mrs_generated = convert_mihomo_mrs(staging / MIHOMO_DOMAIN_YAML_FILE.name, staged_mrs)
+            for file_path in outputs:
+                (staging / file_path.name).replace(file_path)
+            if mrs_generated:
+                staged_mrs.replace(MIHOMO_MRS_FILE)
+    except (OSError, RuntimeError, subprocess.SubprocessError) as exc:
+        print(f"[ERROR] Failed to generate rules: {exc}", file=sys.stderr)
+        return 1
 
     print(f"[OK] Extracted {len(domains)} unique domains.")
     if domains_changed:
